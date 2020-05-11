@@ -1,0 +1,168 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock title %}
+
+{% block stylesheets %}
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"> -->
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css"> -->
+
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="panel-header bg-primary-gradient">
+      <div class="page-inner py-5">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+          <div>
+            <h2 class="text-white pb-2 fw-bold">Dashboard Sreen</h2>
+            <h5 class="text-white op-7 mb-2">Your subscription details are given below</h5>
+          </div>
+          <div class="ml-md-auto py-2 py-md-0">
+            {% if org %}
+            <a href="{% url 'selectplan' %}" class="btn btn-white btn-border btn-round mr-2">Add Subscription</a>
+            <a href="{% url 'addcard' %}" class="btn btn-white btn-border btn-round mr-2">Add Card</a>
+            {% else %}
+            <a href="{% url 'addorg' %}" class="btn btn-white btn-border btn-round mr-2">Add Organization</a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="" style="margin:20px">
+        <table id="example" class="table table-striped table-bordered" style="width:100%;color:#fff;">
+            <thead style="background:#1061c9;">
+                <tr>
+                    <th>Organization</th>
+                    <th>Project</th>
+                    <th>Plan</th>
+                    <th>Subscription Date & Time</th>
+                    <th>Auto Renewal</th>
+                </tr>
+            </thead>
+            <tbody>
+              {% for sub in subscriptions %}
+                <tr>
+                    <td>{{ org.name }}</td>
+                    <td>{{ sub.project.title }}</td>
+                    <td>{{ sub.plan.description }}</td>
+                    <td>{{ sub.subscription_date_time }}</td>
+                    <td>{{ sub.auto_renewal }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+	<script src="/static/assets/js/demo.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+
+  </script>
+
+	<script>
+		Circles.create({
+			id:'circles-1',
+			radius:45,
+			value:60,
+			maxValue:100,
+			width:7,
+			text: 5,
+			colors:['#f1f1f1', '#FF9E27'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-2',
+			radius:45,
+			value:70,
+			maxValue:100,
+			width:7,
+			text: 36,
+			colors:['#f1f1f1', '#2BB930'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		Circles.create({
+			id:'circles-3',
+			radius:45,
+			value:40,
+			maxValue:100,
+			width:7,
+			text: 12,
+			colors:['#f1f1f1', '#F25961'],
+			duration:400,
+			wrpClass:'circles-wrp',
+			textClass:'circles-text',
+			styleWrapper:true,
+			styleText:true
+		})
+
+		var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+		var mytotalIncomeChart = new Chart(totalIncomeChart, {
+			type: 'bar',
+			data: {
+				labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+				datasets : [{
+					label: "Total Income",
+					backgroundColor: '#ff9e27',
+					borderColor: 'rgb(23, 125, 255)',
+					data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+				}],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				legend: {
+					display: false,
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							display: false //this will remove only the label
+						},
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}],
+					xAxes : [ {
+						gridLines : {
+							drawBorder: false,
+							display : false
+						}
+					}]
+				},
+			}
+		});
+
+		$('#lineChart').sparkline([105,103,123,100,95,105,115], {
+			type: 'line',
+			height: '70',
+			width: '100%',
+			lineWidth: '2',
+			lineColor: '#ffa534',
+			fillColor: 'rgba(255, 165, 52, .14)'
+		});
+	</script>
+
+{% endblock javascripts %}

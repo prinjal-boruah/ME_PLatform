@@ -1,0 +1,40 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Add Organization {% endblock title %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/static/assets/css/form.css">
+
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-3">
+        <form id="msform" action="{% url 'addcard' %}" method="POST">
+          {% csrf_token %}
+            <fieldset>
+                <h2 class="fs-title">Card Details</h2>
+                <h3 class="fs-subtitle">Add all the details about the card</h3>
+                <input type="text" name="card_number" placeholder="Card Number"/>
+                <input type="text" name="name_on_card" placeholder="Name on Card"/>
+                <input type="text" name="expiry_date" placeholder="Expiry Date"/>
+                <input type="text" name="cvv" placeholder="CVV"/>
+                <input type="submit" name="next" class="next action-button" />
+            </fieldset>
+        </form>
+        <div class="dme_link">
+            <!-- for bottom margin-->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}

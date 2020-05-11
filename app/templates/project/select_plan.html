@@ -1,0 +1,89 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Add Organization {% endblock title %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/static/assets/css/plans.css">
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="container">
+
+  <span id="plan_heading">Choose Your Project</span>
+
+    <form action="{% url 'selectplan' %}" method="POST">
+      {% csrf_token %}
+      <div class="row">
+
+        {% for project in projects %}
+
+        <div class="new_radio_div col-sm-4">
+          <input type="radio" name="project" id="{{ project.id }}" class="radio_new" value = "{{ project.id }}"/>
+          <label for="{{ project.id }}" class="new_radio_label">{{ project.title }}</label>
+        </div>
+        {% endfor %}
+
+      </div>
+      <br>
+      <hr>
+
+
+        <span id="plan_heading">Choose Your Plan</span>
+        <div class="row">
+
+          {% for plan in plans %}
+
+          <div class="col-md-4 col-lg-4 col-sm-4" >
+            <label >
+              <input type="radio" name="plan" class="card-input-element" value = "{{ plan.id }}" />
+                <div class="panel panel-default card-input">
+                  <div class="panel-body" id="card_div">
+                    <h3 id="plan_title"><b>{{ plan.description }}</b></h3><hr>
+                    {{ plan.details }}<br><hr>
+                    <b>Logins :</b> {{ plan.logins }}<br><hr>
+                    <h2><b>Rs. {{ plan.price }}</b></h2><hr>
+                    <b>Validity :</b> {{ plan.validity }}<br><br>
+                  </div>
+                </div>
+            </label>
+          </div>
+          {% endfor %}
+         </div>
+
+         <hr>
+         <span id="plan_heading">Renewal Date</span>
+         <br>
+
+         <div class="row">
+           <div class="col-md-3 col-lg-3 col-sm-3">
+           </div>
+           <div class="form-group col-md-6 col-lg-6 col-sm-6" style="box-shadow: 0 5px 20px grey;padding:0;">
+             <input id="datepicker-cst" type="text" class="form-control" style="background-image: linear-gradient(to right , #3494E6, #4c57de);border:none" name="renewal_date_time">
+           </div>
+           <div class="col-md-3 col-lg-3 col-sm-3">
+           </div>
+         </div>
+         <hr>
+
+        <div class="col-md-12 col-lg-12 col-sm-12" id="smt_btn_div">
+          <input type="submit" value="ADD TO CART" id="smt_btn">
+        </div>
+
+    </form>
+
+  </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+
+<script>
+  $("#datepicker-cst").datepicker({
+    uiLibrary: 'bootstrap4',
+    modal: false,
+    footer: true
+  })
+</script>
+
+{% endblock javascripts %}

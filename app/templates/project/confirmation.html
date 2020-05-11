@@ -1,0 +1,111 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Add Organization {% endblock title %}
+
+{% block stylesheets %}
+
+<style media="screen">
+  body {
+    background: #fffaf0 !important;
+  }
+
+  #conf_card {
+    min-height: 300px;
+    width: 100%;
+    background: #fff;
+    margin: 50px 0;
+    box-shadow: 0 5px 20px grey;
+    border-radius: 5px;
+    padding: 15px 15px 20px 15px;
+    color: #707070;
+  }
+
+  #conf_card b {
+    display: inline-block;
+    width: 50%;
+    position: relative;
+    padding-right: 10px;
+    /* Ensures colon does not overlay the text */
+  }
+
+  #conf_card b::after {
+    content: ":";
+    position: absolute;
+    right: 10px;
+  }
+
+  .testDiv {
+    min-height: 10px;
+  }
+
+  .razorpay-payment-button {
+    border: none;
+    background-color: orangered;
+    color: white;
+    border-radius: 3px;
+    padding: 6px 14px;
+    display: block;
+    margin: auto;
+  }
+  .razorpay-payment-button:hover {
+    background-color: rgb(255, 93, 34);
+    cursor: pointer;
+  }
+</style>
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-3 col-lg-3 col-sm-3">
+  </div>
+  <div class="col-md-6 col-lg-6 col-sm-6" id="conf_card">
+    <h3 style="color:#000;text-align:center;">Please Confirm the Details Below</h3>
+    <hr>
+    <b>Plan</b> {{ sub.plan.description }}<br>
+    <hr>
+    <b>Project</b> {{ sub.project.title }}<br>
+    <hr>
+    <b>Subscription Date</b> {{ sub.subscription_date_time }}<br>
+    <hr>
+    <b>Renewal Date</b> {{ sub.renewal_date_time }}<br>
+    <hr>
+    <b>Total Amount</b> &#8377; {{ sub.plan.price }}<br>
+    <hr>
+
+    <form method="POST" action="http://localhost:8000/postdetails/{{ sub.project.id }}/">
+      <!-- action="{% url 'home' %}" -->
+      {% csrf_token %}
+      
+      <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="rzp_test_2tx97L0V09FUM6"
+            data-amount="{{ sub.plan.price }}"
+            data-currency="INR"
+            data-order_id="{{ sub.razorpay_order_id }}"
+            data-buttontext="Pay with Razorpay"
+            data-name="RazorPay"
+            data-description="Subscribe to your M&E Plan"
+            data-image="https://static2.clutch.co/s3fs-public/logos/livprop-logo_0.jpg?FpmXi4lWBNFiNzzjGxo38VHpKbZVYJqF"
+            data-prefill.name="Prinjal Boruah"
+            data-prefill.email="prinjalboruahr@example.com"
+            data-theme.color="#1061c9"
+            
+        ></script>
+      <input type="hidden" custom="Hidden Element" name="hidden" value="submit">
+    </form>
+  </div>
+  <div class="col-md-3 col-lg-3 col-sm-3">
+  </div>
+</div>
+<div class="testDiv">
+
+</div>
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}

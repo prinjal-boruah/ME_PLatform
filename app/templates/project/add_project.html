@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Add Organization {% endblock title %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/static/assets/css/form.css">
+
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-3">
+        <form id="msform" action="{% url 'addproject' %}" method="POST">
+          {% csrf_token %}
+            <fieldset>
+                <h2 class="fs-title">Add New Project</h2>
+                <h3 class="fs-subtitle">Add a project under the organization</h3>
+                <input type="text" name="project_title" placeholder="Project Title"/>
+                <input type="text" name="project_summary" placeholder="Project Summary"/>
+                <input type="text" name="duartion" placeholder="Duration"/>
+                <input type="text" name="p_start_date" placeholder="Start Date"/>
+                <input type="text" name="p_end_date" placeholder="End Date"/>
+                <input type="text" name="status" placeholder="Status"/>
+                <input type="submit" name="next" class="next action-button" />
+            </fieldset>
+        </form>
+        <div class="dme_link">
+            <!-- for bottom margin-->
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}

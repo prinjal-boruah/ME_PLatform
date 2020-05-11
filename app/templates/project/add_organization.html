@@ -1,0 +1,79 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Add Organization {% endblock title %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/static/assets/css/form.css">
+
+{% endblock stylesheets %}
+
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-12 col-md-offset-3">
+        <form id="msform" action="{% url 'addorg' %}" method="POST">
+          {% csrf_token %}
+            <fieldset>
+                <h2 class="fs-title">Organiazation Details</h2>
+                <h3 class="fs-subtitle">Add all the details about the organization</h3>
+                <input type="text" name="org_name" placeholder="Name"/>
+                <input type="text" name="type_id" placeholder="Type ID"/>
+                <input type="text" name="c_add_1" placeholder="Communication Address 1"/>
+                <input type="text" name="c_add_2" placeholder="Communication Address 2"/>
+                <input type="text" name="c_country" placeholder="Communication Country"/>
+                <input type="text" name="c_state" placeholder="Communication State"/>
+                <input type="text" name="c_district" placeholder="Communication District"/>
+                <input type="text" name="c_phone" placeholder="Communication Phone"/>
+                <input type="text" name="c_email" placeholder="Communication Email"/>
+                <input type="text" name="c_status" placeholder="Communication Status"/>
+                <input type="text" name="c_gst" placeholder="Communication GSTIN"/>
+                <!-- <input type="checkbox" id="same_as_above" name="same_as_above" value="same_as_above">
+                <label for="vehicle1">Billing details are same as Communication details</label><br> -->
+                <input type="text" name="b_add_1" placeholder="Billing Address 1"/>
+                <input type="text" name="b_add_2" placeholder="Billing Address 2"/>
+                <input type="text" name="b_country" placeholder="Billing Country"/>
+                <input type="text" name="b_state" placeholder="Billing State"/>
+                <input type="text" name="b_district" placeholder="Billing District"/>
+                <input type="text" name="b_phone" placeholder="Billing Phone"/>
+                <input type="text" name="b_email" placeholder="Billing Email"/>
+                <input type="text" name="b_status" placeholder="Billing Status"/>
+                <input type="text" name="b_gst" placeholder="Billing GSTIN"/>
+
+
+
+
+                <input type="submit" name="next" class="next action-button" />
+            </fieldset>
+        </form>
+        <div class="dme_link">
+            <!-- for bottom margin-->
+        </div>
+
+    </div>
+</div>
+
+<!-- <div class="form-group">
+  <label class="control-label" for="datepicker-cst">Date</label>
+  <input id="datepicker-cst" type="text" class="form-control">
+</div> -->
+
+<!-- <div class="form-group form-floating-label mt-3">
+  <input type="text" name="title" class="form-control input-solid" required id="inputFloatingLabel2" >
+  <label for="inputFloatingLabel2" class="placeholder">Title</label>
+</div> -->
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+<!-- <script>
+  $("#datepicker-cst").datepicker({
+    uiLibrary: 'bootstrap4',
+    modal: false,
+    footer: true
+  })
+</script> -->
+{% endblock javascripts %}
